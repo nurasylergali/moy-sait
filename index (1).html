@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Нурасыл — мой сайт</title>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Nunito:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f1226; --card:#1a1f3d; --card2:#232a52;
+    --yellow:#ffd23f; --blue:#3fa9ff; --green:#4cd97b; --pink:#ff5d8f; --purple:#a77bff;
+    --text:#f3f5ff; --muted:#aab2d8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;
+    background-image:radial-gradient(circle at 15% 10%,#2b2f6b 0,transparent 40%),radial-gradient(circle at 85% 30%,#3b1f5c 0,transparent 35%);}
+  h1,h2,.title-font{font-family:'Russo One',sans-serif;letter-spacing:.5px}
+  .wrap{max-width:1000px;margin:0 auto;padding:24px 18px 60px}
+
+  /* HERO */
+  .hero{text-align:center;padding:40px 10px 30px}
+  .avatar{width:120px;height:120px;border-radius:28px;margin:0 auto 18px;display:grid;place-items:center;
+    font-family:'Russo One';font-size:60px;color:#1a1f3d;background:linear-gradient(135deg,var(--yellow),#ff9f1c);
+    box-shadow:0 8px 0 #b86b00,0 14px 30px rgba(255,190,40,.35);transform:rotate(-4deg)}
+  .hero h1{font-size:clamp(34px,7vw,58px);background:linear-gradient(90deg,var(--yellow),var(--pink),var(--blue));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{color:var(--muted);font-size:18px;margin-top:6px}
+  .badges{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px}
+  .badge{background:var(--card2);border:2px solid #343d75;padding:8px 14px;border-radius:999px;font-weight:700}
+
+  /* LEVEL BAR */
+  .level{margin:26px auto 0;max-width:460px;background:var(--card);border-radius:16px;padding:14px 18px;border:2px solid #2c3466}
+  .level-top{display:flex;justify-content:space-between;font-weight:900}
+  .bar{height:16px;background:#0b0e20;border-radius:10px;margin-top:8px;overflow:hidden}
+  .bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--yellow));border-radius:10px;transition:width 1.6s ease}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:5;background:rgba(15,18,38,.9);backdrop-filter:blur(8px);
+    display:flex;gap:8px;overflow-x:auto;padding:10px 12px;border-bottom:1px solid #262d5a}
+  nav a{color:var(--text);text-decoration:none;font-weight:700;white-space:nowrap;padding:6px 12px;border-radius:10px;background:var(--card)}
+  nav a:hover{background:var(--blue);color:#0f1226}
+
+  /* SECTIONS */
+  section{margin-top:44px}
+  section h2{font-size:28px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+  .card{background:var(--card);border:2px solid #2c3466;border-radius:18px;padding:18px;transition:transform .2s, border-color .2s}
+  .card:hover{transform:translateY(-4px);border-color:var(--blue)}
+  .card .emoji{font-size:34px}
+  .card h3{font-size:19px;margin:6px 0 4px}
+  .card p{color:var(--muted)}
+  .big{font-family:'Russo One';font-size:30px;color:var(--yellow)}
+
+  .yellow{border-color:#5c4d10}.yellow:hover{border-color:var(--yellow)}
+  .green:hover{border-color:var(--green)} .pink:hover{border-color:var(--pink)} .purple:hover{border-color:var(--purple)}
+
+  /* HOUSE */
+  .house{display:flex;flex-wrap:wrap;gap:10px}
+  .room{background:var(--card2);padding:10px 14px;border-radius:12px;font-weight:700}
+
+  /* DREAM */
+  .dream{background:linear-gradient(135deg,#2a2f66,#4a2a6e);border-radius:22px;padding:24px;border:2px solid #5a4b9a}
+  .dream h3{font-family:'Russo One';font-size:22px}
+  .dream p{color:#d9dcf5;margin-top:6px}
+  .vs{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+  .vs button{flex:1;min-width:140px;font:inherit;font-weight:900;font-size:18px;padding:14px;border-radius:14px;border:none;cursor:pointer;
+    background:var(--card);color:var(--text);border:2px solid #5a4b9a;transition:.2s}
+  .vs button.active{background:var(--yellow);color:#1a1f3d;border-color:var(--yellow)}
+  #pick{margin-top:12px;font-weight:700;color:var(--yellow);min-height:24px}
+
+  /* QUIZ */
+  .quiz{background:var(--card);border-radius:20px;padding:22px;border:2px solid #2c3466}
+  .quiz .q{font-size:20px;font-weight:900}
+  .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:14px}
+  .opts button{font:inherit;font-weight:700;padding:12px;border-radius:12px;border:2px solid #343d75;background:var(--card2);color:var(--text);cursor:pointer}
+  .opts button.right{background:var(--green);color:#0f1226;border-color:var(--green)}
+  .opts button.wrong{background:var(--pink);color:#0f1226;border-color:var(--pink)}
+  .quiz-foot{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:10px;flex-wrap:wrap}
+  .next{font:inherit;font-weight:900;padding:10px 18px;border:none;border-radius:12px;background:var(--blue);color:#0f1226;cursor:pointer}
+  #score{color:var(--muted);font-weight:700}
+
+  footer{text-align:center;color:var(--muted);margin-top:60px;font-weight:700}
+
+  /* ЗАДНИЙ ФОН */
+  .bg{position:fixed;inset:0;z-index:-1;overflow:hidden}
+  .bg svg{width:100%;height:100%;display:block}
+  .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,18,38,.15) 0%,rgba(15,18,38,.35) 60%,rgba(15,18,38,.55) 100%)}
+  .float{position:absolute;font-size:34px;opacity:.55;animation:fly 9s ease-in-out infinite}
+  @keyframes fly{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-26px) rotate(12deg)}}
+  .twinkle{animation:tw 3s ease-in-out infinite}
+  @keyframes tw{0%,100%{opacity:.25}50%{opacity:1}}
+  .card,.quiz,.level{background:rgba(26,31,61,.88);backdrop-filter:blur(6px)}
+  .dream{background:linear-gradient(135deg,rgba(42,47,102,.92),rgba(74,42,110,.92))}
+  .hero h1{filter:drop-shadow(0 3px 10px rgba(0,0,0,.6))}
+  .hero p{color:#dfe3ff;text-shadow:0 2px 8px rgba(0,0,0,.7)}
+</style>
+</head>
+<body>
+
+<!-- Задний фон: мой дом в Коянды ночью -->
+<div class="bg">
+  <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#0b0e22"/>
+        <stop offset=".55" stop-color="#262a66"/>
+        <stop offset="1" stop-color="#6a3f7d"/>
+      </linearGradient>
+      <radialGradient id="glow"><stop offset="0" stop-color="#fff3c4" stop-opacity=".6"/><stop offset="1" stop-color="#fff3c4" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect width="1200" height="800" fill="url(#sky)"/>
+    <g id="stars"></g>
+    <!-- луна -->
+    <circle cx="1010" cy="130" r="110" fill="url(#glow)"/>
+    <circle cx="1010" cy="130" r="48" fill="#ffe9a8"/>
+    <circle cx="995" cy="118" r="8" fill="#f1d38a"/><circle cx="1025" cy="145" r="6" fill="#f1d38a"/>
+    <!-- холмы степи -->
+    <path d="M0 560 Q200 500 420 545 T820 530 T1200 520 V800 H0Z" fill="#1b2f3a"/>
+    <path d="M0 640 Q300 600 600 630 T1200 615 V800 H0Z" fill="#20402f"/>
+    <rect y="660" width="1200" height="140" fill="#255236"/>
+    <!-- забор -->
+    <g fill="#5b4632">
+      <rect x="60" y="625" width="1080" height="8"/>
+      <rect x="60" y="645" width="1080" height="8"/>
+    </g>
+    <g fill="#6e553c" id="fence"></g>
+
+    <!-- летняя кухня -->
+    <rect x="180" y="575" width="130" height="90" fill="#d9a35f"/>
+    <polygon points="170,580 245,535 320,580" fill="#8b2f3a"/>
+    <rect x="200" y="600" width="38" height="30" fill="#ffd23f"/>
+    <rect x="262" y="605" width="30" height="60" fill="#7a4b2a"/>
+    <text x="245" y="572" text-anchor="middle" font-size="13" fill="#fff" font-family="Nunito" font-weight="700">летняя кухня</text>
+
+    <!-- дом: 1 этаж + 2 этаж под крышей -->
+    <rect x="380" y="505" width="270" height="160" fill="#c9874a"/>
+    <rect x="570" y="390" width="24" height="60" fill="#7a3a3a"/>
+    <polygon points="355,510 515,365 675,510" fill="#8b2f3a"/>
+    <polygon points="385,505 515,388 645,505" fill="#a33a46"/>
+    <!-- окно второго этажа под крышей -->
+    <rect x="488" y="430" width="54" height="50" fill="#ffd23f"/>
+    <polygon points="480,432 515,405 550,432" fill="#8b2f3a"/>
+    <!-- окна 1 этажа (светятся) -->
+    <rect x="405" y="535" width="55" height="50" fill="#ffd23f"/><rect x="570" y="535" width="55" height="50" fill="#ffe680"/>
+    <g stroke="#7a4b2a" stroke-width="4">
+      <line x1="515" y1="430" x2="515" y2="480"/><line x1="488" y1="455" x2="542" y2="455"/>
+      <line x1="432" y1="535" x2="432" y2="585"/><line x1="597" y1="535" x2="597" y2="585"/>
+    </g>
+    <rect x="490" y="565" width="50" height="100" fill="#6b3f22"/>
+    <circle cx="530" cy="615" r="4" fill="#ffd23f"/>
+
+    <!-- гараж (синий) -->
+    <rect x="650" y="540" width="170" height="125" fill="#2f6fd6"/>
+    <polygon points="640,545 735,500 830,545" fill="#1e4a99"/>
+    <rect x="670" y="570" width="130" height="95" fill="#6fa3f0"/>
+    <g stroke="#4f86d9" stroke-width="3">
+      <line x1="670" y1="590" x2="800" y2="590"/><line x1="670" y1="610" x2="800" y2="610"/>
+      <line x1="670" y1="630" x2="800" y2="630"/><line x1="670" y1="650" x2="800" y2="650"/>
+    </g>
+    <!-- кошка на крыше гаража -->
+    <g fill="#1b1b2b">
+      <ellipse cx="760" cy="515" rx="16" ry="12"/>
+      <circle cx="775" cy="500" r="9"/>
+      <polygon points="769,494 771,483 777,492"/><polygon points="778,492 784,483 784,495"/>
+      <path d="M745 518 Q730 505 738 490" stroke="#1b1b2b" stroke-width="5" fill="none" stroke-linecap="round"/>
+    </g>
+    <circle cx="773" cy="499" r="2" fill="#4cd97b"/><circle cx="779" cy="499" r="2" fill="#4cd97b"/>
+
+    <!-- огород -->
+    <g id="garden"></g>
+    <text x="1040" y="668" text-anchor="middle" font-size="13" fill="#fff" font-family="Nunito" font-weight="700">огород</text>
+
+    <!-- папина машина Toyota (серебристая) у гаража -->
+    <g transform="translate(640,655)">
+      <path d="M10 30 Q8 12 30 10 L60 10 L82 -12 L140 -12 L165 10 L185 12 Q198 14 198 30 Z" fill="#c3c9d2"/>
+      <path d="M68 8 L86 -6 L108 -6 L108 8 Z M114 8 L114 -6 L136 -6 L154 8 Z" fill="#33406b"/>
+      <rect x="10" y="22" width="188" height="6" fill="#9aa1ab"/>
+      <circle cx="45" cy="32" r="16" fill="#16161f"/><circle cx="45" cy="32" r="7" fill="#d0d4dc"/>
+      <circle cx="160" cy="32" r="16" fill="#16161f"/><circle cx="160" cy="32" r="7" fill="#d0d4dc"/>
+      <rect x="190" y="16" width="8" height="6" fill="#ffd23f"/>
+      <text x="104" y="22" text-anchor="middle" font-size="10" fill="#555" font-family="Nunito" font-weight="900">TOYOTA</text>
+    </g>
+
+    <!-- квадроцикл -->
+    <g transform="translate(855,665)">
+      <rect x="0" y="0" width="95" height="28" rx="10" fill="#ff5d8f"/>
+      <rect x="25" y="-16" width="40" height="18" rx="6" fill="#1e1e2e"/>
+      <path d="M70 -2 L85 -28 L98 -28" stroke="#333" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <circle cx="18" cy="34" r="20" fill="#16161f"/><circle cx="18" cy="34" r="8" fill="#888"/>
+      <circle cx="80" cy="34" r="20" fill="#16161f"/><circle cx="80" cy="34" r="8" fill="#888"/>
+      <circle cx="92" cy="8" r="5" fill="#ffd23f"/>
+    </g>
+
+    <!-- собака -->
+    <g transform="translate(235,700)" fill="#c88a4a">
+      <ellipse cx="0" cy="0" rx="34" ry="18"/>
+      <circle cx="34" cy="-16" r="15"/>
+      <ellipse cx="44" cy="-30" rx="6" ry="11" fill="#8a5a2b" transform="rotate(25 44 -30)"/>
+      <rect x="-24" y="10" width="8" height="22"/><rect x="18" y="10" width="8" height="22"/>
+      <path d="M-32 -6 Q-50 -26 -42 -36" stroke="#c88a4a" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <circle cx="39" cy="-19" r="2.5" fill="#111"/><circle cx="49" cy="-12" r="3" fill="#111"/>
+    </g>
+
+    <!-- футбольный мяч -->
+    <g transform="translate(420,720)">
+      <circle r="17" fill="#fff"/>
+      <polygon points="0,-7 7,-2 4,6 -4,6 -7,-2" fill="#111"/>
+    </g>
+  </svg>
+  <span class="float" style="left:6%;top:18%">⚽</span>
+  <span class="float" style="left:84%;top:40%;animation-delay:-2s">🥋</span>
+  <span class="float" style="left:12%;top:48%;animation-delay:-4s">➗</span>
+  <span class="float" style="left:72%;top:12%;animation-delay:-6s">🎮</span>
+  <span class="float" style="left:40%;top:8%;animation-delay:-3s">⭐</span>
+  <span class="float" style="left:90%;top:70%;animation-delay:-5s">📱</span>
+</div>
+
+<nav>
+  <a href="#about">👤 Обо мне</a>
+  <a href="#family">👨‍👩‍👧‍👦 Семья</a>
+  <a href="#home">🏠 Мой дом</a>
+  <a href="#hobby">🎮 Увлечения</a>
+  <a href="#food">🍝 Еда</a>
+  <a href="#phones">📱 Гаджеты</a>
+  <a href="#quiz">❓ Викторина</a>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="avatar">Н</div>
+    <h1>Привет, я Нурасыл!</h1>
+    <p>Добро пожаловать на мой личный сайт 👋</p>
+    <div class="badges">
+      <span class="badge">🎂 12 лет</span>
+      <span class="badge">🇰🇿 Казахстан, Коянды</span>
+      <span class="badge">🏫 Казахская школа №1</span>
+      <span class="badge">📚 7 класс</span>
+      <span class="badge">🥋 Тхэквондо</span>
+    </div>
+    <div class="level">
+      <div class="level-top"><span>⭐ Уровень игрока</span><span>LVL 12</span></div>
+      <div class="bar"><span id="xp"></span></div>
+    </div>
+  </header>
+
+  <section id="about">
+    <h2>👤 Обо мне</h2>
+    <div class="grid">
+      <div class="card"><div class="emoji">🧒</div><h3>Имя</h3><p>Нурасыл</p></div>
+      <div class="card"><div class="emoji">🎂</div><h3>Возраст</h3><p>12 лет</p></div>
+      <div class="card"><div class="emoji">📍</div><h3>Где живу</h3><p>Казахстан, Коянды</p></div>
+      <div class="card"><div class="emoji">🏫</div><h3>Учёба</h3><p>Казахская школа №1, 7 класс</p></div>
+      <div class="card green"><div class="emoji">🥋</div><h3>Спорт</h3><p>Хожу на тхэквондо</p></div>
+      <div class="card yellow"><div class="emoji">🤝</div><h3>Мой друг</h3><p>Жаркын</p></div>
+    </div>
+  </section>
+
+  <section id="family">
+    <h2>👨‍👩‍👧‍👦 Моя семья</h2>
+    <div class="grid">
+      <div class="card"><div class="emoji">👨</div><h3>Папа</h3><div class="big">49</div><p>лет</p></div>
+      <div class="card"><div class="emoji">🧔</div><h3>Брат</h3><div class="big">30</div><p>лет</p></div>
+      <div class="card pink"><div class="emoji">👩</div><h3>Старшая сестра</h3><div class="big">22</div><p>года</p></div>
+      <div class="card purple"><div class="emoji">👧</div><h3>Младшая сестра</h3><div class="big">16</div><p>лет · учит английский и через 2 года закончит школу</p></div>
+    </div>
+    <div class="grid" style="margin-top:14px">
+      <div class="card"><div class="emoji">🏡</div><h3>Соседи</h3><p>Возле нашего дома живут наши родственники</p></div>
+      <div class="card"><div class="emoji">🐶🐱</div><h3>Питомцы</h3><p>У нас есть собака и кошка</p></div>
+      <div class="card"><div class="emoji">🚙</div><h3>Машина папы</h3><p>Toyota 70, серебристого цвета</p></div>
+    </div>
+  </section>
+
+  <section id="home">
+    <h2>🏠 Мой дом</h2>
+    <div class="card" style="padding:22px">
+      <p style="color:var(--text);font-weight:700;margin-bottom:12px">Внутри дома:</p>
+      <div class="house">
+        <span class="room">🛏️ 3 комнаты</span>
+        <span class="room">🛋️ Зал</span>
+        <span class="room">🍳 Кухня</span>
+        <span class="room">🪜 2-й этаж под крышей</span>
+        <span class="room">🚪 2 коридора</span>
+      </div>
+      <p style="color:var(--text);font-weight:700;margin:18px 0 12px">Во дворе:</p>
+      <div class="house">
+        <span class="room">🌳 Задний двор</span>
+        <span class="room">🔵 Синий гараж</span>
+        <span class="room">☀️ Летняя кухня</span>
+        <span class="room">🥕 Огород</span>
+        <span class="room">🏍️ Мой квадроцикл</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="hobby">
+    <h2>🎮 Что я люблю</h2>
+    <div class="grid">
+      <div class="card yellow"><div class="emoji">➗</div><h3>Математика</h3><p>Один из любимых предметов</p></div>
+      <div class="card yellow"><div class="emoji">📐</div><h3>Алгебра</h3><p>Тоже люблю!</p></div>
+      <div class="card green"><div class="emoji">⚽</div><h3>Физкультура</h3><p>Двигаться — это круто</p></div>
+      <div class="card yellow"><div class="emoji">📖</div><h3>Русский язык</h3><p>Тоже любимый предмет</p></div>
+      <div class="card pink"><div class="emoji">⭐</div><h3>Brawl Stars</h3><p>Любимая игра на телефоне</p></div>
+      <div class="card pink"><div class="emoji">🎯</div><h3>Standoff 2</h3><p>Тоже играю постоянно</p></div>
+      <div class="card purple"><div class="emoji">🧱</div><h3>Roblox</h3><p>Люблю немножко поиграть</p></div>
+      <div class="card"><div class="emoji">📺</div><h3>Блогеры</h3><p>Смотрю Компота и Глента</p></div>
+    </div>
+  </section>
+
+  <section id="food">
+    <h2>🍝 Что я люблю есть</h2>
+    <div class="grid">
+      <div class="card yellow"><div class="emoji">🍝</div><h3>Макароны</h3><p>Одна из любимых еды</p></div>
+      <div class="card pink"><div class="emoji">🍲</div><h3>Борщ</h3><p>Очень вкусно!</p></div>
+      <div class="card purple"><div class="emoji">🍰</div><h3>Любимый десерт</h3><p>Рулет «Яшкино»</p></div>
+      <div class="card green"><div class="emoji">🥟🍕</div><h3>В школе</h3><p>Люблю есть самсу или пиццу</p></div>
+      <div class="card"><div class="emoji">🥤</div><h3>Кола</h3><p>Любимый напиток</p></div>
+      <div class="card"><div class="emoji">🍵</div><h3>Чай</h3><p>Тоже люблю</p></div>
+    </div>
+  </section>
+
+  <section id="phones">
+    <h2>📱 Мои гаджеты</h2>
+    <div class="grid">
+      <div class="card"><div class="emoji">📱</div><h3>Мой телефон</h3><p>Nubia L70 Pro</p></div>
+      <div class="card"><div class="emoji">🕹️</div><h3>Раньше был</h3><p>iPhone 12 Pro</p></div>
+      <div class="card green"><div class="emoji">💻</div><h3>Планшет</h3><p>У меня есть планшет</p></div>
+      <div class="card pink"><div class="emoji">🍏</div><h3>Одна сестра</h3><p>iPhone 16</p></div>
+      <div class="card purple"><div class="emoji">🍎</div><h3>Вторая сестра</h3><p>iPhone 17</p></div>
+      <div class="card"><div class="emoji">📲</div><h3>Папа</h3><p>Samsung Galaxy S22</p></div>
+    </div>
+    <div class="dream" style="margin-top:16px">
+      <h3>🎯 Моя цель: накопить на iPhone!</h3>
+      <p>Я коплю на iPhone 14 или iPhone 13. Какой выбрать? Нажми и проголосуй:</p>
+      <div class="vs">
+        <button data-p="iPhone 13">iPhone 13</button>
+        <button data-p="iPhone 14">iPhone 14</button>
+      </div>
+      <div id="pick"></div>
+    </div>
+  </section>
+
+  <section id="quiz">
+    <h2>❓ Викторина: насколько хорошо ты меня знаешь?</h2>
+    <div class="quiz">
+      <div class="q" id="qtext"></div>
+      <div class="opts" id="opts"></div>
+      <div class="quiz-foot">
+        <span id="score"></span>
+        <button class="next" id="next">Дальше ➜</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>Сделал Нурасыл 😎 · Коянды, Казахстан</footer>
+</div>
+
+<script>
+  // Звёзды и забор на фоне
+  const NS='http://www.w3.org/2000/svg', st=document.getElementById('stars');
+  for(let k=0;k<90;k++){
+    const c=document.createElementNS(NS,'circle');
+    c.setAttribute('cx',Math.random()*1200);c.setAttribute('cy',Math.random()*420);
+    c.setAttribute('r',Math.random()*1.8+.5);c.setAttribute('fill','#fff');
+    c.setAttribute('class','twinkle');c.style.animationDelay=(-Math.random()*3)+'s';
+    st.appendChild(c);
+  }
+  // грядки огорода
+  const gd=document.getElementById('garden');
+  for(let row=0;row<3;row++){
+    const y=685+row*28;
+    const bed=document.createElementNS(NS,'rect');
+    bed.setAttribute('x',970);bed.setAttribute('y',y);bed.setAttribute('width',150);bed.setAttribute('height',14);
+    bed.setAttribute('rx',6);bed.setAttribute('fill','#5b3b22');gd.appendChild(bed);
+    for(let x=980;x<=1110;x+=22){
+      const p=document.createElementNS(NS,'ellipse');
+      p.setAttribute('cx',x);p.setAttribute('cy',y-2);p.setAttribute('rx',8);p.setAttribute('ry',10);
+      p.setAttribute('fill',row===1?'#e0473f':'#4cd97b');gd.appendChild(p);
+    }
+  }
+  const fe=document.getElementById('fence');
+  for(let x=60;x<=1140;x+=30){
+    const r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',x);r.setAttribute('y',615);r.setAttribute('width',8);r.setAttribute('height',48);
+    fe.appendChild(r);
+  }
+
+  // Полоска уровня
+  setTimeout(()=>{document.getElementById('xp').style.width='72%'},300);
+
+  // Голосование за айфон
+  const btns=document.querySelectorAll('.vs button');
+  btns.forEach(b=>b.addEventListener('click',()=>{
+    btns.forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById('pick').textContent='Ты выбрал: '+b.dataset.p+'! Отличный выбор 🔥';
+  }));
+
+  // Викторина
+  const Q=[
+    {q:'Сколько мне лет?',o:['10','11','12','13'],a:2},
+    {q:'В какой класс я хожу?',o:['5','6','7','8'],a:2},
+    {q:'Каким спортом я занимаюсь?',o:['Бокс','Тхэквондо','Плавание','Шахматы'],a:1},
+    {q:'Как зовут моего друга?',o:['Арман','Жаркын','Данияр','Алихан'],a:1},
+    {q:'Какой у меня транспорт?',o:['Мопед','Велосипед','Квадроцикл','Самокат'],a:2},
+    {q:'Сколько лет моему брату?',o:['22','25','28','30'],a:3},
+    {q:'Какой мой любимый предмет?',o:['Математика','Химия','История','Рисование'],a:0},
+    {q:'Какие питомцы у нас есть?',o:['Хомяк и рыбка','Собака и кошка','Попугай','Нет питомцев'],a:1},
+    {q:'Мой любимый десерт?',o:['Мороженое','Торт','Рулет «Яшкино»','Шоколадка'],a:2},
+    {q:'Какого цвета наш гараж?',o:['Красный','Синий','Зелёный','Белый'],a:1},
+    {q:'Какая машина у папы?',o:['Toyota','Lada','Kia','BMW'],a:0},
+    {q:'Что я люблю есть в школе?',o:['Суп','Самсу или пиццу','Салат','Кашу'],a:1}
+  ];
+  let i=0,score=0,answered=false;
+  const qtext=document.getElementById('qtext'),opts=document.getElementById('opts'),
+        sc=document.getElementById('score'),next=document.getElementById('next');
+  function show(){
+    answered=false;
+    if(i>=Q.length){
+      qtext.textContent='Готово! Твой результат: '+score+' из '+Q.length+(score===Q.length?' 🏆 Ты меня знаешь на 100%!':' 👍');
+      opts.innerHTML='';next.textContent='Ещё раз 🔄';sc.textContent='';return;
+    }
+    next.textContent='Дальше ➜';
+    qtext.textContent=(i+1)+'. '+Q[i].q;
+    opts.innerHTML='';
+    Q[i].o.forEach((t,k)=>{
+      const b=document.createElement('button');b.textContent=t;
+      b.onclick=()=>{
+        if(answered)return;answered=true;
+        if(k===Q[i].a){b.classList.add('right');score++;}
+        else{b.classList.add('wrong');opts.children[Q[i].a].classList.add('right');}
+        sc.textContent='Очки: '+score;
+      };
+      opts.appendChild(b);
+    });
+    sc.textContent='Очки: '+score;
+  }
+  next.onclick=()=>{
+    if(i>=Q.length){i=0;score=0;show();return;}
+    i++;show();
+  };
+  show();
+</script>
+</body>
+</html>
